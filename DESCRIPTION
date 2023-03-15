@@ -1,0 +1,16 @@
+Package: bbdata
+Version: 0.1
+Date: 2023-03-15
+Title: bbdata
+Description: An R package for managing BiB data requests.
+Author: Dan Mason
+Maintainer: Dan Mason <dan.mason@bthft.nhs.uk>
+Imports:
+  opalr,
+  tibble,
+  readxl,
+  tidyr,
+  dplyr,
+  haven,
+  readr
+  

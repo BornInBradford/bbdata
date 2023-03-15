@@ -1,2 +1,2 @@
 # bbdata
-An R package for managing Born in Bradford data requests.
+bbdata is an R package developed by Born in Bradford for processing data requests
