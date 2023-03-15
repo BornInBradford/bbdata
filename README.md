@@ -161,11 +161,51 @@ not_found <- dat |> get_bb_not_found()
 
 # Exporting data
 
+If full flexibility is required, data can be retrieved table by table using `get_bb_data` to allow further processing prior to export as separate or merged files.
 
+For more convenience, `write_bb_data` is provided to automate the process of exporting each tibble in a `bb_opaldata` to a separate file. It also writes csv files containing the names of all variables requested and the names of any variables that were not found. The only required parameter is the path to the desired output folder:
 
+```R
+dat |> write_bb_data(path = "path/to/output/folder")
+```
 
+By default, `write_bb_data` will prepend each file with 'opaldata' and will export in Stata format. These options can be customised:
+
+```R
+# outputs default stata format
+# files prepended with 'data_request_name'
+dat |> write_bb_data(path = "path/to/output/folder",
+                     name = "data_request_name")
+
+# outputs csv format
+dat |> write_bb_data(path = "path/to/output/folder",
+                     name = "data_request_name",
+                     format = "csv")
+```
 
 # Fully worked example
 
+Running an example data request, starting from a text format variable list file, checking for missing variables, and exporting to Stata format with customised filenames:
 
+```R
+library(bbdata)
 
+request_id = "1234"
+input_file = "path/to/text/file"
+output_folder = "path/to/output/folder"
+
+# fetch data
+request <- bb_opaltxt(input_file) |> fetch_bb_opaldata()
+
+# check for missing variables
+request |> get_bb_not_found()
+
+# export
+request |> write_bb_data(path = output_folder, name = request_id)
+```
+
+The simple script above can be tailored to run any data request by modifying the parameters `request_id`, `input_file` and `output_folder`. 
+
+If the input format changes, then the `bb_opaltxt` function needs to be changed, e.g. see sections on [xlsx](#xlsx-file-request) and [manual](#manual-or-hard-coded-request) formats.
+
+If a different output format is required, then the `format` parameter can be added to `write_bb_data` - see [Exporting data](#exporting-data).
