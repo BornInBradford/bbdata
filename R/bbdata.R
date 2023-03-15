@@ -27,6 +27,7 @@ bb_variables <- function(full_name = character(0)) {
 }
 
 
+#' @export
 bb_cohort <- function(x, ...) {
   
   UseMethod("bb_cohort", x)
@@ -150,6 +151,7 @@ bb_cohorttxt <- function(filename = character(0)) {
 }
 
 
+#' @export
 read_bb_opalvars <- function(x) {
   
   UseMethod("read_bb_opalvars", x)
@@ -179,6 +181,7 @@ read_bb_opalvars.bb_variables <- function(varlist) {
 }
 
 
+#' @export
 fetch_bb_opaldata <- function(x, ...) {
   
   UseMethod("fetch_bb_opaldata", x)
@@ -344,6 +347,7 @@ fetch_opal_tab_meta <- function(opalvars, o = NULL, logout = is.null(o$sid)) {
 }
 
 
+#' @export
 get_bb_projects <- function(x, ...) {
   
   UseMethod("get_bb_projects", x)
@@ -378,6 +382,7 @@ get_bb_tables.bb_opalvars <- function(opalvars) {
 }
 
 
+#' @export
 get_bb_vars_requested <- function(x, ...) {
   
   UseMethod("get_bb_vars_requested", x)
@@ -395,6 +400,7 @@ get_bb_vars_requested.bb_opalvars <- function(opalvars) {
 }
 
 
+#' @export
 get_bb_vars_df <- function(x, ...) {
   
   UseMethod("get_bb_vars_df", x)
@@ -412,6 +418,7 @@ get_bb_vars_df.bb_opalvars <- function(opalvars) {
 }
 
 
+#' @export
 get_bb_data <- function(x, ...) {
   
   UseMethod("get_bb_data", x)
@@ -444,6 +451,7 @@ get_bb_data.bb_cohort <- function(cohort) {
 }
 
 
+#' @export
 get_bb_var_metadata <- function(x) {
   
   UseMethod("get_bb_var_metadata", x)
@@ -461,6 +469,7 @@ get_bb_var_metadata.bb_opaldata <- function(opaldata) {
 }
 
 
+#' @export
 get_bb_tab_metadata <- function(x) {
   
   UseMethod("get_bb_tab_metadata", x)
@@ -478,6 +487,7 @@ get_bb_tab_metadata.bb_opaldata <- function(opaldata) {
 }
 
 
+#' @export
 write_bb_data <- function(x, ...) {
   
   UseMethod("write_bb_data", x)
@@ -543,6 +553,7 @@ write_bb_data.bb_opaldata <- function(opaldata,
 }
 
 
+#' @export
 subset_bb_data <- function(x, ...) {
   
   UseMethod("subset_bb_data", x)
