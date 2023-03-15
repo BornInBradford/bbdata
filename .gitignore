@@ -41,3 +41,6 @@ vignettes/*.pdf
 /examples
 /examples/
 
+/.vs
+/.vs/
+
