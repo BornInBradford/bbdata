@@ -112,8 +112,52 @@ Note that the default behaviour is not to return detailed metadata as the query 
 
 # Interrogating data
 
+## Getting data
 
+The data from each Opal table in the request is in a separate tibble inside the returned `bb_opaldata`. These can be brought forward for further analysis using `get_bb_data`. They can be referred to either by index number or by their full name:
 
+```R
+dat <- bb_opaltxt("path/to/text/file") |> fetch_bb_opaldata()
+
+# by index
+new_data <- dat |> get_bb_data(1)
+
+# by name
+new_data <- dat |> get_bb_data("table_name")
+```
+
+Extending the data dictionary example from above:
+
+```R
+dat <- bb_variables("DataDictionary.dd_variables.*") |> 
+       read_bb_opalvars() |>
+       fetch_bb_opaldata()
+
+# get dd_variables data table
+vars_info <- dat |> get_bb_data("DataDictionary.dd_variables")
+```
+
+Variable and table metadata can be returned as follows:
+
+```R
+dat <- bb_variables("DataDictionary.dd_variables.*") |> 
+       read_bb_opalvars() |>
+       fetch_bb_opaldata(meta = TRUE)
+
+# get variable metadata
+vars_info <- dat |> get_bb_var_metadata()
+
+# get table metadata
+tabs_info <- dat |> get_bb_tab_metadata()
+```
+
+Note this only works if metadata was requested using `meta = TRUE`. If not, each of the above functions will return `NULL`.
+
+Variables that were not found and therefore not returned by Opal can be retrieved for checking:
+
+```R
+not_found <- dat |> get_bb_not_found()
+```
 
 # Exporting data
 

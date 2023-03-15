@@ -462,6 +462,24 @@ get_bb_data.bb_cohort <- function(cohort) {
 
 
 #' @export
+get_bb_not_found <- function(x, ...) {
+  
+  UseMethod("get_bb_not_found", x)
+  
+}
+
+
+#' @export
+get_bb_not_found.bb_opaldata <- function(opaldata) {
+  
+  dat <- opaldata$not_found
+  
+  return(dat)
+  
+}
+
+
+#' @export
 get_bb_var_metadata <- function(x) {
   
   UseMethod("get_bb_var_metadata", x)
