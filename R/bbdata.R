@@ -15,6 +15,7 @@ bb_opal_logout <- function(o) {
   
 }
 
+#' @export
 bb_variables <- function(full_name = character(0)) {
   
   me <- list(variables = full_name)
@@ -26,7 +27,6 @@ bb_variables <- function(full_name = character(0)) {
 }
 
 
-
 bb_cohort <- function(x, ...) {
   
   UseMethod("bb_cohort", x)
@@ -34,6 +34,7 @@ bb_cohort <- function(x, ...) {
 }
 
 
+#' @export
 bb_cohort.character <- function(id_list) {
   
   me <- list(cohort = tibble::tibble(id = id_list))
@@ -45,6 +46,7 @@ bb_cohort.character <- function(id_list) {
 }
 
 
+#' @export
 bb_cohort.bb_opalvars <- function(opalvars, o = NULL, logout = is.null(o$sid)) {
   
   table_ids <- list()
@@ -83,6 +85,7 @@ bb_cohort.bb_opalvars <- function(opalvars, o = NULL, logout = is.null(o$sid)) {
 }
 
 
+#' @export
 bb_opaltxt <- function(filename = character(0), header = FALSE) {
   
   vars <- read.table(filename, header = header)
@@ -98,6 +101,7 @@ bb_opaltxt <- function(filename = character(0), header = FALSE) {
 }
 
 
+#' @export
 bb_opalxl <- function(filename = character(0), sheet = 1, format = "notfound") {
   
   vars <- readxl::read_excel(filename, sheet)
@@ -133,6 +137,8 @@ bb_opalxl <- function(filename = character(0), sheet = 1, format = "notfound") {
   
 }
 
+
+#' @export
 bb_cohorttxt <- function(filename = character(0)) {
   
   id_list <- read.csv(filename)
@@ -143,12 +149,15 @@ bb_cohorttxt <- function(filename = character(0)) {
   
 }
 
+
 read_bb_opalvars <- function(x) {
   
   UseMethod("read_bb_opalvars", x)
   
 }
 
+
+#' @export
 read_bb_opalvars.bb_variables <- function(varlist) {
   
   vars_df <- data.frame(varfullname = varlist$variables)
@@ -176,6 +185,8 @@ fetch_bb_opaldata <- function(x, ...) {
   
 }
 
+
+#' @export
 fetch_bb_opaldata.bb_opalvars <- function(opalvars, o = NULL, logout = is.null(o$sid), meta = FALSE) {
   
   me <- list(data = list(),
@@ -250,6 +261,7 @@ fetch_bb_opaldata.bb_opalvars <- function(opalvars, o = NULL, logout = is.null(o
 }
 
 
+#' @export
 fetch_opal_var_meta <- function(opalvars, o = NULL, logout = is.null(o$sid)) {
   
   tables <- opalvars |> get_bb_tables()
@@ -288,6 +300,7 @@ fetch_opal_var_meta <- function(opalvars, o = NULL, logout = is.null(o$sid)) {
 }
 
 
+#' @export
 fetch_opal_tab_meta <- function(opalvars, o = NULL, logout = is.null(o$sid)) {
   
   projects <- opalvars |> get_bb_projects()
@@ -338,6 +351,7 @@ get_bb_projects <- function(x, ...) {
 }
 
 
+#' @export
 get_bb_projects.bb_opalvars <- function(opalvars) {
   
   projects <- opalvars$projects
@@ -347,7 +361,6 @@ get_bb_projects.bb_opalvars <- function(opalvars) {
 }
 
 
-
 get_bb_tables <- function(x, ...) {
   
   UseMethod("get_bb_tables", x)
@@ -355,6 +368,7 @@ get_bb_tables <- function(x, ...) {
 }
 
 
+#' @export
 get_bb_tables.bb_opalvars <- function(opalvars) {
 
   tables <- opalvars$tables
@@ -364,7 +378,6 @@ get_bb_tables.bb_opalvars <- function(opalvars) {
 }
 
 
-
 get_bb_vars_requested <- function(x, ...) {
   
   UseMethod("get_bb_vars_requested", x)
@@ -372,6 +385,7 @@ get_bb_vars_requested <- function(x, ...) {
 }
 
 
+#' @export
 get_bb_vars_requested.bb_opalvars <- function(opalvars) {
   
   vars <- opalvars$vars_requested$variables
@@ -388,6 +402,7 @@ get_bb_vars_df <- function(x, ...) {
 }
 
 
+#' @export
 get_bb_vars_df.bb_opalvars <- function(opalvars) {
   
   vars_df <- opalvars$vars_df
@@ -404,6 +419,7 @@ get_bb_data <- function(x, ...) {
 }
 
 
+#' @export
 get_bb_data.bb_opaldata <- function(opaldata, df_name = character(0), df_index = integer(0)) {
   
   if(length(df_name) == 1) dat <- opaldata$data[[df_name]]
@@ -414,6 +430,8 @@ get_bb_data.bb_opaldata <- function(opaldata, df_name = character(0), df_index =
   
 }
 
+
+#' @export
 get_bb_data.bb_cohort <- function(cohort) {
   
   dat <- cohort$cohort
@@ -425,6 +443,7 @@ get_bb_data.bb_cohort <- function(cohort) {
   
 }
 
+
 get_bb_var_metadata <- function(x) {
   
   UseMethod("get_bb_var_metadata", x)
@@ -432,6 +451,7 @@ get_bb_var_metadata <- function(x) {
 }
 
 
+#' @export
 get_bb_var_metadata.bb_opaldata <- function(opaldata) {
   
   dat <- opaldata$metadata$variable
@@ -440,6 +460,7 @@ get_bb_var_metadata.bb_opaldata <- function(opaldata) {
   
 }
 
+
 get_bb_tab_metadata <- function(x) {
   
   UseMethod("get_bb_tab_metadata", x)
@@ -447,6 +468,7 @@ get_bb_tab_metadata <- function(x) {
 }
 
 
+#' @export
 get_bb_tab_metadata.bb_opaldata <- function(opaldata) {
   
   dat <- opaldata$metadata$table
@@ -455,6 +477,7 @@ get_bb_tab_metadata.bb_opaldata <- function(opaldata) {
   
 }
 
+
 write_bb_data <- function(x, ...) {
   
   UseMethod("write_bb_data", x)
@@ -462,6 +485,7 @@ write_bb_data <- function(x, ...) {
 }
 
 
+#' @export
 write_bb_data.bb_opaldata <- function(opaldata, 
                                       path,
                                       name = "opaldata",
@@ -519,7 +543,6 @@ write_bb_data.bb_opaldata <- function(opaldata,
 }
 
 
-
 subset_bb_data <- function(x, ...) {
   
   UseMethod("subset_bb_data", x)
@@ -527,6 +550,7 @@ subset_bb_data <- function(x, ...) {
 }
 
 
+#' @export
 subset_bb_data.bb_opaldata <- function(opaldata, cohort, df_name = character(0)) {
   
   for(d in 1:length(opaldata$data)) {

@@ -5,6 +5,7 @@ Title: bbdata
 Description: An R package for managing BiB data requests.
 Author: Dan Mason
 Maintainer: Dan Mason <dan.mason@bthft.nhs.uk>
+License: MIT
 Imports:
   opalr,
   tibble,
@@ -13,4 +14,4 @@ Imports:
   dplyr,
   haven,
   readr
-  
+RoxygenNote: 7.2.3
