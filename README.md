@@ -1,4 +1,4 @@
-# About bbdata
+# About
 
 `bbdata` is an R package developed by Born in Bradford for processing data requests. 
 
@@ -89,6 +89,26 @@ Or, from a text format variable request in one step:
 ```R
 dat <- bb_opaltxt("path/to/text/file") |> fetch_bb_opaldata()
 ```
+
+If you also want to retrieve detailed metadata for the requested variables:
+
+```R
+dat <- bb_opaltxt("path/to/text/file") |> fetch_bb_opaldata(meta = TRUE)
+```
+
+Note that the default behaviour is not to return detailed metadata as the query can take some time to complete.
+
+## Results
+
+`fetch_bb_opaldata` returns an object called a `bb_opaldata` that is a nested set of named lists containing the data requested and various other pieces of potentially useful information:
+
+| bb_opaldata  |   |
+|---|---|
+| data | Tibbles containing the data requested, one tibble per Opal table. |
+| metadata | If requested using `meta = TRUE` contains two tibbles of metadata. `metadata$variable` contains variable-level metadata and `metadata$table` contains table-level metadata. |
+| notfound | A data frame containing the names of variables that were not returned by Opal. |
+| request | This is a copy of the original `dd_opalvars` object that was submitted to request the data. |
+
 
 # Interrogating data
 

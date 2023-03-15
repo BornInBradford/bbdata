@@ -292,9 +292,19 @@ fetch_opal_var_meta <- function(opalvars, o = NULL, logout = is.null(o$sid)) {
     dplyr::mutate(variable_id = paste0(datasource, ".", table, ".", name)) |>
     dplyr::relocate(variable_id)
   
-  vars_select <- opalvars |> get_bb_vars_requested()
+  vars_df <- opalvars |> get_bb_vars_df()
   
-  variables <- variables |> dplyr::filter(variable_id %in% vars_select)
+  tabs_select_wildcard <- vars_df |> dplyr::filter(variable == "*") |> unique()
+  
+  vars_df_no_wildcard <- vars_df |>
+    dplyr::anti_join(tabs_select_wildcard, by = c("project", "table"))
+  
+  vars_select <- paste0(vars_df_no_wildcard$project, ".", vars_df_no_wildcard$table, ".", vars_df_no_wildcard$variable)
+  
+  variables_wildcard <- variables |> dplyr::semi_join(tabs_select_wildcard, by = c("datasource" = "project", "table" = "table"))
+  
+  variables <- variables |> dplyr::filter(variable_id %in% vars_select) |>
+    dplyr::bind_rows(variables_wildcard)
   
   if(logout) bb_opal_logout(o)
   
