@@ -1,7 +1,7 @@
 
-bb_opal_login <- function(credentials = "H:/MyDocuments/R/opal_opts.R") {
+bb_opal_login <- function(credentials = getOption("bbdata_creds")) {
   
-  source(credentials)
+  if(!is.null(credentials)) source(credentials)
   
   o <- opalr::opal.login()
   
