@@ -121,7 +121,7 @@ Note that the default behaviour is not to return detailed metadata as the query 
 |---|---|
 | data | Tibbles containing the data requested, one tibble per Opal table. |
 | metadata | If requested using `meta = TRUE` contains two tibbles of metadata. `metadata$variable` contains variable-level metadata and `metadata$table` contains table-level metadata. |
-| notfound | A data frame containing the names of variables that were not returned by Opal. |
+| not_found | A data frame containing the names of variables that were not returned by Opal. |
 | request | This is a copy of the original `dd_opalvars` object that was submitted to request the data. |
 
 ## Fetching metadata
@@ -134,6 +134,24 @@ vars_info <- bb_opaltxt("path/to/text/file") |> fetch_opal_var_meta()
 
 # fetch table metadata
 tabs_info <- bb_opaltxt("path/to/text/file") |> fetch_opal_tab_meta()
+```
+
+## Opal session management
+
+By default, `fetch_bb_opaldata` and the metadata fetch functions log into a new Opal session, run the query and then log out cleanly. You can override this behaviour by supplying an active Opal session using the `o` parameter. This allows you to run multiple successive queries in the same Opal session and might be more efficient during complex or lengthy processes:
+
+```R
+o <- opalr::opal.login()
+
+dd_request <- bb_variables("DataDictionary.dd_variables.*") |> 
+  read_bb_opalvars() |>
+  fetch_bb_opaldata(o)
+
+# also works with the metadata fetch functions
+vars_info <- bb_opaltxt("path/to/text/file") |> fetch_opal_var_meta(o)
+tabs_info <- bb_opaltxt("path/to/text/file") |> fetch_opal_tab_meta(o)
+
+opalr::opal.logout(o)
 ```
 
 
@@ -186,24 +204,6 @@ Variables that were not found and therefore not returned by Opal can be retrieve
 
 ```R
 not_found <- dat |> get_bb_not_found()
-```
-
-## Opal session management
-
-By default, `fetch_bb_opaldata` and the metadata fetch functions log into a new Opal session, run the query and then log out cleanly. You can override this behaviour by supplying an active Opal session using the `o` parameter. This allows you to run multiple successive queries in the same Opal session and might be more efficient during complex or lengthy processes:
-
-```R
-o <- opalr::opal.login()
-
-dd_request <- bb_variables("DataDictionary.dd_variables.*") |> 
-  read_bb_opalvars() |>
-  fetch_bb_opaldata(o)
-
-# also works with the metadata fetch functions
-vars_info <- bb_opaltxt("path/to/text/file") |> fetch_opal_var_meta(o)
-tabs_info <- bb_opaltxt("path/to/text/file") |> fetch_opal_tab_meta(o)
-
-opalr::opal.logout(o)
 ```
 
 
