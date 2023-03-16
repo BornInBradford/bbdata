@@ -184,7 +184,7 @@ vars_info <- dat |> get_bb_data("DataDictionary.dd_variables")
 
 ## Getting metadata
 
-As we saw [above](fetching-metadata), detailed variable and table metadata can be queried from Opal directly without returning full tabular data. However, metadata can be requested alongside full tabular data and then brought forward for further analysis as follows:
+As we saw [above](#fetching-metadata), detailed variable and table metadata can be queried from Opal directly without returning full tabular data. However, metadata can be requested alongside full tabular data and then brought forward for further analysis as follows:
 
 ```R
 dat <- bb_variables("DataDictionary.dd_variables.*") |> 
